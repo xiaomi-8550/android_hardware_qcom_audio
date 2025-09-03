@@ -1,5 +1,5 @@
 # Audio product definitions
-include vendor/qcom/opensource/audio-hal/primary-hal/configs/anorak/audio-modules.mk
+include vendor/qcom/opensource/audio-hal/primary-hal/configs/anorak61/audio-modules.mk
 PRODUCT_PACKAGES += $(AUDIO_MODULES)
 
 #BOARD_USES_GENERIC_AUDIO := true
@@ -112,21 +112,21 @@ PRODUCT_PACKAGES += fai__4.8.4_0.0__3.0.0_0.0__3.1.1_0.0__3.2.0_0.1__eai_2.10_en
 QCV_FAMILY_SKUS := anorak
 DEVICE_SKU := anorak
 
-CONFIG_PAL_SRC_DIR := vendor/qcom/opensource/pal/configs/anorak
-CONFIG_HAL_SRC_DIR := vendor/qcom/opensource/audio-hal/primary-hal/configs/anorak
+CONFIG_PAL_SRC_DIR := vendor/qcom/opensource/pal/configs/anorak61
+CONFIG_HAL_SRC_DIR := vendor/qcom/opensource/audio-hal/primary-hal/configs/anorak61
+
 #CONFIG_SKU_OUT_DIR := $(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_$(DEVICE_SKU)
 CONFIG_SKU_OUT_DIR := $(TARGET_COPY_OUT_VENDOR)/etc/
 PRODUCT_COPY_FILES += \
     $(CONFIG_HAL_SRC_DIR)/audio_effects.conf:$(CONFIG_SKU_OUT_DIR)/audio_effects.conf \
+    $(CONFIG_HAL_SRC_DIR)/backend_conf.xml:$(TARGET_COPY_OUT_VENDOR)/etc/backend_conf.xml \
     $(CONFIG_HAL_SRC_DIR)/audio_effects.xml:$(CONFIG_SKU_OUT_DIR)/audio_effects.xml \
     $(CONFIG_HAL_SRC_DIR)/microphone_characteristics.xml:$(TARGET_COPY_OUT_VENDOR)/etc/microphone_characteristics.xml \
     $(CONFIG_PAL_SRC_DIR)/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml \
-    $(CONFIG_PAL_SRC_DIR)/mixer_paths_anorak_qxr.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_anorak_qxr.xml \
-    $(CONFIG_PAL_SRC_DIR)/mixer_paths_anorak_pro_qxr.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_anorak_pro_qxr.xml \
-    $(CONFIG_PAL_SRC_DIR)/mixer_paths_anorak_idp.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_anorak_idp.xml \
-    $(CONFIG_PAL_SRC_DIR)/resourcemanager_anorak_qxr.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_anorak_qxr.xml \
-    $(CONFIG_PAL_SRC_DIR)/resourcemanager_anorak_pro_qxr.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_anorak_pro_qxr.xml \
-    $(CONFIG_PAL_SRC_DIR)/resourcemanager_anorak_idp.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_anorak_idp.xml \
+    $(CONFIG_PAL_SRC_DIR)/mixer_paths_anorak_qxr_wsa883x.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_anorak_qxr_wsa883x.xml \
+    $(CONFIG_PAL_SRC_DIR)/mixer_paths_anorak_idp_wsa883x.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_anorak_idp_wsa883x.xml \
+    $(CONFIG_PAL_SRC_DIR)/resourcemanager_anorak_qxr_wsa883x.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_anorak_qxr_wsa883x.xml \
+    $(CONFIG_PAL_SRC_DIR)/resourcemanager_anorak_idp_wsa883x.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_anorak_idp_wsa883x.xml \
     $(CONFIG_PAL_SRC_DIR)/usecaseKvManager.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usecaseKvManager.xml \
     vendor/qcom/opensource/audio-hal/primary-hal/configs/common/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml \
     frameworks/native/data/etc/android.hardware.audio.pro.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.pro.xml \

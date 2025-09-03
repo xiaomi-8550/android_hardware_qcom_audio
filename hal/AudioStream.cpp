@@ -30,7 +30,7 @@
 /*
  *  Changes from Qualcomm Innovation Center are provided under the following license:
  *
- *  Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
+ *  Copyright (c) 2022-2023, 2024 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted (subject to the limitations in the
@@ -1943,6 +1943,8 @@ pal_stream_type_t StreamOutPrimary::GetPalStreamType(
         palStreamType = PAL_STREAM_SPATIAL_AUDIO;
     } else if ((halStreamFlags & AUDIO_OUTPUT_FLAG_FAST) != 0) {
         palStreamType = PAL_STREAM_LOW_LATENCY;
+    } else if ((halStreamFlags & AUDIO_OUTPUT_FLAG_TTS) != 0) {
+        palStreamType = PAL_STREAM_LOW_LATENCY;
     } else if (halStreamFlags ==
                     (AUDIO_OUTPUT_FLAG_FAST|AUDIO_OUTPUT_FLAG_RAW)) {
         palStreamType = PAL_STREAM_RAW;
@@ -2564,10 +2566,11 @@ int StreamOutPrimary::SetParameters(struct str_parms *parms) {
 
     ret = AudioExtn::get_controller_stream_from_params(parms, &controller, &stream);
     if (ret >= 0) {
-        adevice->dp_controller = controller;
-        adevice->dp_stream = stream;
-        if (stream >= 0 || controller >= 0)
+        if (stream >= 0 && controller >= 0) {
+            adevice->dp_controller = controller;
+            adevice->dp_stream = stream;
             AHAL_INFO("ret %d, plugin device cont %d stream %d", ret, controller, stream);
+        }
     } else {
         AHAL_ERR("error %d, failed to get stream and controller", ret);
     }
@@ -3881,6 +3884,10 @@ StreamOutPrimary::StreamOutPrimary(
             free(device_cap_query_);
             dynamic_media_config = NULL;
             device_cap_query_ = NULL;
+        } else if (audio_is_linear_pcm(config->format) && AUDIO_OUTPUT_FLAG_NONE == flags) {
+            // HIFI output port
+            AHAL_DBG("use deep buffer for HIFI output on USBC hs");
+            flags_ = AUDIO_OUTPUT_FLAG_DEEP_BUFFER;
         }
         if (!config->sample_rate || !config->format || !config->channel_mask) {
             if (dynamic_media_config) {
@@ -3895,7 +3902,7 @@ StreamOutPrimary::StreamOutPrimary(
             if (config->format == AUDIO_FORMAT_DEFAULT)
                 config->format = AUDIO_FORMAT_PCM_16_BIT;
             memcpy(&config_, config, sizeof(struct audio_config));
-            AHAL_INFO("sample rate = %#x channel_mask=%#x fmt=%#x",
+            AHAL_INFO("sample rate = %d channel_mask = %#x fmt = %#x",
                       config->sample_rate, config->channel_mask,
                       config->format);
 
@@ -3918,7 +3925,7 @@ StreamOutPrimary::StreamOutPrimary(
         }
     }
 
-    usecase_ = GetOutputUseCase(flags);
+    usecase_ = GetOutputUseCase(flags_);
     if (address) {
         strlcpy((char *)&address_, address, AUDIO_DEVICE_MAX_ADDRESS_LEN);
     } else {
@@ -3960,7 +3967,7 @@ StreamOutPrimary::StreamOutPrimary(
             mPalOutDevice[i].config.sample_rate = DEFAULT_OUTPUT_SAMPLING_RATE;
         mPalOutDevice[i].config.bit_width = CODEC_BACKEND_DEFAULT_BIT_WIDTH;
         mPalOutDevice[i].config.aud_fmt_id = PAL_AUDIO_FMT_PCM_S16_LE; // TODO: need to convert this from output format
-        AHAL_INFO("device rate = %#x width=%#x fmt=%#x",
+        AHAL_INFO("device rate = %d width = %#x fmt = %#x",
             mPalOutDevice[i].config.sample_rate,
             mPalOutDevice[i].config.bit_width,
             mPalOutDevice[i].config.aud_fmt_id);

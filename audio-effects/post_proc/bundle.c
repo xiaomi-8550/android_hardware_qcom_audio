@@ -2,7 +2,6 @@
  * Copyright (c) 2013-2017, 2019-2020, The Linux Foundation. All rights reserved.
  * Not a Contribution.
  *
- * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Copyright (C) 2013 The Android Open Source Project
  *
@@ -35,6 +34,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Changes from Qualcomm Innovation Center, Inc. are provided under the following license:
+ * Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause-Clear
  */
 
 #define LOG_TAG "offload_effect_bundle"
@@ -50,7 +53,9 @@
 #include <unistd.h>
 
 #include "bundle.h"
+#ifndef BYPASS_HW_ACCELERATED_EFFECTS
 #include "hw_accelerator.h"
+#endif
 #include "equalizer.h"
 #include "bass_boost.h"
 #include "virtualizer.h"
@@ -705,7 +710,8 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
         }
         if (pCmdData == NULL || cmdSize != 2 * sizeof(uint32_t) ||
                 replySize == NULL || *replySize < 2*sizeof(int32_t)) {
-            return -EINVAL;
+            status = -EINVAL;
+	    goto exit;
         }
         memcpy(pReplyData, pCmdData, sizeof(int32_t)*2);
         } break;
@@ -749,7 +755,8 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
               cmdSize, pCmdData, *replySize, pReplyData);
         if (cmdSize != sizeof(uint32_t) || pCmdData == NULL
                 || pReplyData == NULL || *replySize != sizeof(int)) {
-            return -EINVAL;
+	    status = -EINVAL;
+	    goto exit;
         }
         uint32_t value = *(uint32_t *)pCmdData;
         if (context->ops.set_hw_acc_mode)

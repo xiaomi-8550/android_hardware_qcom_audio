@@ -114,6 +114,7 @@ PRODUCT_PACKAGES += fai__2.6.3_0.0__3.0.0_0.0__3.1.1_0.0__3.2.0_0.1__eai_2.10_en
 PRODUCT_PACKAGES += fai__2.7.5_0.0__3.0.0_0.0__3.1.1_0.0__3.2.0_0.1__eai_2.10_enpuv3.pmd
 PRODUCT_PACKAGES += fai__2.7.8_0.0__3.0.0_0.0__3.1.1_0.0__3.2.0_0.1__eai_2.10_enpuv3.pmd
 PRODUCT_PACKAGES += fai__4.8.4_0.0__3.0.0_0.0__3.1.1_0.0__3.2.0_0.1__eai_2.10_enpuv3.pmd
+PRODUCT_PACKAGES += fai__4.8.14_2.0__3.0.0_0.0__3.1.2_0.0__3.2.0_0.1__eai_2.25_enpuv3.pmd
 
 # Audio configuration xml's related to Kailua
 QCV_FAMILY_SKUS := kalama
@@ -135,15 +136,19 @@ PRODUCT_COPY_FILES += \
     $(CONFIG_PAL_SRC_DIR)/mixer_paths_kalama_cdp.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_kalama_cdp.xml \
     $(CONFIG_PAL_SRC_DIR)/mixer_paths_kalama_cdp_apq.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_kalama_cdp_apq.xml \
     $(CONFIG_PAL_SRC_DIR)/mixer_paths_kalama_cdp_wsa883x.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_kalama_cdp_wsa883x.xml \
+    $(CONFIG_PAL_SRC_DIR)/mixer_paths_kalama_iot_vc.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_kalama_iot_vc.xml \
     $(CONFIG_PAL_SRC_DIR)/mixer_paths_kalama_grd.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_kalama_grd.xml \
     $(CONFIG_PAL_SRC_DIR)/mixer_paths_kalama_rb5_gen2_dvt.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_kalama_rb5_gen2_dvt.xml \
+    $(CONFIG_PAL_SRC_DIR)/mixer_paths_kalama_rb5_gen2_vc.xml:$(CONFIG_SKU_OUT_DIR)/mixer_paths_kalama_rb5_gen2_vc.xml \
     $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_qrd.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_qrd.xml \
     $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_aim.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_aim.xml \
     $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_mtp.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_mtp.xml \
     $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_mtp_apq.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_mtp_apq.xml \
     $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_cdp.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_cdp.xml \
+    $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_iot_vc.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_iot_vc.xml \
     $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_cdp_apq.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_cdp_apq.xml \
     $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_rb5_gen2_dvt.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_rb5_gen2_dvt.xml \
+    $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_rb5_gen2_vc.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_rb5_gen2_vc.xml \
     $(CONFIG_PAL_SRC_DIR)/usecaseKvManager.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usecaseKvManager.xml \
     $(CONFIG_PAL_SRC_DIR)/resourcemanager_kalama_grd.xml:$(CONFIG_SKU_OUT_DIR)/resourcemanager_kalama_grd.xml \
     vendor/qcom/opensource/audio-hal/primary-hal/configs/common/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml \
