@@ -26,6 +26,7 @@ AUDIO_AGM += libagmservice
 #PAL Service
 AUDIO_PAL += libpalclient
 AUDIO_PAL += vendor.qti.hardware.pal@1.0-impl
+AUDIO_PAL += vendor.qti.hardware.paleventnotifier@1.0-impl
 
 #PAL Module
 AUDIO_PAL := libar-pal
@@ -36,6 +37,7 @@ AUDIO_PAL += catf
 AUDIO_PAL += PalTest
 AUDIO_PAL += libaudiochargerlistener
 AUDIO_PAL += libhfp_pal
+AUDIO_PAL += palcshm_test
 
 # C2 Audio
 AUDIO_C2 := libqc2audio_base
